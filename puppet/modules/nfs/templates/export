@@ -1,0 +1,10 @@
+<%= @export -%>
+<% if @options -%>
+ -<%= @options %> \
+<% end -%>
+<% @clients.each_pair do |key,val| -%>
+	<%= key -%>
+<% if $val -%>(<%= val %>)<% end -%>
+ \
+<% end -%>
+

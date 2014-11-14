@@ -1,0 +1,10 @@
+{
+  "Modulefile": "ccbf08abd42b12c980bec6a1473e9bb7",
+  "README.md": "9cfb81b4ff0adc52ff5ce88654b2fb1e",
+  "manifests/init.pp": "e0345d2b7c73fcc87bec8fbf0ab1f8ac",
+  "manifests/params.pp": "7b8c556dc4a7575aeac02d50d47a7d4f",
+  "spec/spec.opts": "a600ded995d948e393fbe2320ba8e51c",
+  "spec/spec_helper.rb": "ca19ec4f451ebc7fdb035b52eae6e909",
+  "templates/vimrc.erb": "1c020cc29e105faebc048ef06beddf1d",
+  "tests/init.pp": "b651e1a93505b3f5baf094fd19fdc663"
+}

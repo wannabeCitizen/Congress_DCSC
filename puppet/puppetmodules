@@ -1,0 +1,9 @@
+puppetlabs/apt
+puppetlabs/stdlib
+puppetlabs/inifile
+puppetlabs/concat
+puppetlabs/vcsrepo
+puppetlabs/mysql
+puppetlabs/ntp
+saz/limits
+thias/sysctl
