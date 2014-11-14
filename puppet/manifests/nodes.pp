@@ -42,5 +42,5 @@ node '<insert-comma-separated-node-name-list-here'{
 
 	package{$packages_list: ensure => "latest"}
 
-	exec{ "sudo vim-addon-manager -w install puppet" }
+	exec{ "sudo vim-addon-manager -w install puppet": require => Package['vim-puppet'] }
 }
