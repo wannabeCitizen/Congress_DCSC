@@ -18,8 +18,7 @@ Exec {
 #include vim
 #include ::accounts
 
-#TODO: add node names for cluster
-node '<insert-comma-separated-node-name-list-here'{
+node 'michael-VirtualBox', 'ubuntu-ngn-r720-1', 'ubuntu-ngn-r720-2', 'ubuntu-ngn-r720-3', 'ubuntu-ngn-r520'{
 	class { 'accounts':
 		uname		=>  'mico8428',
 		uid             =>  1001,
@@ -30,8 +29,11 @@ node '<insert-comma-separated-node-name-list-here'{
 		homepath		=>	'/home',
 	}
 
+	sudo::conf { 'admin':
+		priority	=> 10,
+		content		=> "%admin ALL=(ALL) NOPASSWD: ALL",
+	}
 
-	#TODO: pull from puppetlabs rather than use directly
 	class { 'vim':
 		set_as_default	=> false,
 		autoupgrade 	=> true,
@@ -42,5 +44,5 @@ node '<insert-comma-separated-node-name-list-here'{
 
 	package{$packages_list: ensure => "latest"}
 
-	exec{ "sudo vim-addon-manager -w install puppet": require => Package['vim-puppet'] }
+	exec{ "sudo vim-addon-manager -w install puppet": require => Package['vim-puppet']}
 }

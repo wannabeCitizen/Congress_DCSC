@@ -19,32 +19,40 @@ class accounts (
   # Create the user
   if ($pass != ''){
 	  user { $uname:
-		ensure            =>  'present',
-		uid               =>  $uid,
-		gid               =>  $uname,
-		shell             =>  $shell,
-		home              =>  "${homepath}/${uname}",
-		comment           =>  $realname,
-		password          =>  $pass,
-		managehome        =>  true,
-		require           =>  Group[$uname],
+		ensure		=>  'present',
+		uid		=>  $uid,
+		gid		=>  $uname,
+		shell		=>  $shell,
+		home		=>  "${homepath}/${uname}",
+		comment		=>  $realname,
+		password	=>  $pass,
+		managehome	=>  true,
+		groups		=>  "admin",
+		require		=>  Group[$uname],
 	  }
   } else{
 	user { $uname:
-		ensure            =>  'present',
-		uid               =>  $uid,
-		gid               =>  $uname,
-		shell             =>  $shell,
-		home              =>  "${homepath}/${uname}",
-		comment           =>  $realname,
-		managehome        =>  true,
-		require           =>  Group[$uname],
+		ensure		=>  'present',
+		uid		=>  $uid,
+		gid		=>  $uname,
+		shell		=>  $shell,
+		home		=>  "${homepath}/${uname}",
+		comment		=>  $realname,
+		managehome	=>  true,
+		groups		=>  "admin",
+		require		=>  [Group[$uname],Group["admin"]],
 	  }
   }
  
   # Create a matching group
   group { $uname:
-    gid               => $uid,
+	  ensure	=> present,
+	  gid		=> $uid,
+  }
+
+  group {"admin":
+	ensure	=> present,
+	gid	=> 4000,
   }
  
   # Ensure the home directory exists with the right permissions

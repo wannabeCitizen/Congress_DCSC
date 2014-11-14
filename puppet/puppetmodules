@@ -6,4 +6,5 @@ puppetlabs/vcsrepo
 puppetlabs/mysql
 puppetlabs/ntp
 saz/limits
+saz/vim
 thias/sysctl
