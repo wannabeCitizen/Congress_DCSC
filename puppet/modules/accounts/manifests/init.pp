@@ -1,4 +1,4 @@
-class accounts (
+define accounts (
 	$uname = undef,
 	$uid = undef,
 	$realname='',
@@ -50,9 +50,11 @@ class accounts (
 	  gid		=> $uid,
   }
 
-  group {"admin":
-	ensure	=> present,
-	gid	=> 4000,
+  if !defined(Group["admin"]) {
+	  group {"admin":
+		ensure	=> present,
+		gid	=> 4000,
+	  }
   }
  
   # Ensure the home directory exists with the right permissions
