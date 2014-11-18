@@ -29,6 +29,17 @@ node 'michael-VirtualBox', 'ubuntu-ngn-r720-1', 'ubuntu-ngn-r720-2', 'ubuntu-ngn
 		homepath		=>	'/home',
 	}
 
+	class {"accounts":
+		uname		     => "ginesh",
+		uid		       => 1002,
+		realname	   => "",
+		sshkeytype	 => 'ssh-rsa',
+		sshkey		    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDBpGdEVTk7MQ9fwQTT9LMSPCjDwsrO4eV/3ozcOe0trIm3tstg9GYqLDHCUjAeOr1kA11K0wPkasllWbXzi5Yo1bWs8sJaWwFc8n5EP3B/jH92Wkj6qfbn67dvm/ILVpG84U9ikzUWktZ23J+zBK2KSeY7CQ/psFyoK+5Iuc8OCVoGsxlbQNW9rh7bZoQw0V6fy0bZsEfLm/IjOZ9b7Xpg7IJfFaMzvlqM6q9E00VA7fIfzB3hCzwR3nc5PeUHHrhP3c+THDwDIMqH5A+/DIZGAJJeGJ5T/aWYqG5IJ31EJJwwrJSmhqeQ/BF6Iif/HescbuMBRWUI6efkK9viZMbN'
+		shell		     => '/bin/bash',
+		homepath	   => '/home',
+	}
+
+
 	sudo::conf { 'admin':
 		priority	=> 10,
 		content		=> "%admin ALL=(ALL) NOPASSWD: ALL",
