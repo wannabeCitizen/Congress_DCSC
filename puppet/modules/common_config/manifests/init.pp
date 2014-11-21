@@ -1,7 +1,18 @@
 class common_config(){	
+	include sudo
 	accounts{ 'mico8428':
 		uname		=>  'mico8428',
 		uid             =>  1001,
+		realname        =>  'Michael Coughlin',
+		sshkeytype      =>  'ssh-rsa',
+		sshkey          =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC9LAFcXxkonD5CAXzPTtbp/zbUBmOQbRE5U4QpfK0N0+PGU7wsjoPEd2BSQRgASMIVypbW2oRvtWjMqDGo70iBh3sSnaogLIZS4Z1+8zlSZ33bSqcWFXc6ORe8F9qMiV8eKxKxei3Ix2lovxUZYsZKOR3pl4QGigotS5QaK9mdwtpZ03hLWFqh+w6dQC1pAvuwWGvEQuVLaEpXUxOarzPzhTckEva7veiW6EByvghR+/K+laLqP89oml2klPZJWVIbNLPrMYPCcTAmZIuU4UWGye6bESsUB5qPFdSXLqqtav4SyE7nhAyjxjzJAs7Bz2ZfXJfysXxBJB1DZvgLLFdd',
+		shell			=>	'/bin/bash',
+		homepath		=>	'/home',
+	}
+
+	accounts{ 'test2':
+		uname		=>  'test2',
+		uid             =>  1004,
 		realname        =>  'Michael Coughlin',
 		sshkeytype      =>  'ssh-rsa',
 		sshkey          =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC9LAFcXxkonD5CAXzPTtbp/zbUBmOQbRE5U4QpfK0N0+PGU7wsjoPEd2BSQRgASMIVypbW2oRvtWjMqDGo70iBh3sSnaogLIZS4Z1+8zlSZ33bSqcWFXc6ORe8F9qMiV8eKxKxei3Ix2lovxUZYsZKOR3pl4QGigotS5QaK9mdwtpZ03hLWFqh+w6dQC1pAvuwWGvEQuVLaEpXUxOarzPzhTckEva7veiW6EByvghR+/K+laLqP89oml2klPZJWVIbNLPrMYPCcTAmZIuU4UWGye6bESsUB5qPFdSXLqqtav4SyE7nhAyjxjzJAs7Bz2ZfXJfysXxBJB1DZvgLLFdd',
@@ -27,9 +38,9 @@ class common_config(){
 
 	sudo::sudoers{ 'sudoers':
 		ensure	=> 'present',
-		users	=> ['mico8428', 'ginesh'],
+		users	=> ['mico8428', 'ginesh', 'test2'],
 		runas	=> ['root'],
-		cmds	=> ['ALL'],
+		cmnds	=> ['ALL'],
 		tags	=> ['NOPASSWD'],
 		defaults => [ 'env_keep += "SSH_AUTH_SOCK"' ],
 	}
