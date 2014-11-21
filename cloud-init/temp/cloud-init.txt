@@ -1,0 +1,10 @@
+#cloud-config
+groups:
+  - default
+
+users:
+  - default
+
+runcmd:
+  - /bin/bash puppet/puppet_bootstrap.sh
+  - /bin/bash puppet/puppet.sh
