@@ -5,6 +5,7 @@ puppetlabs/concat
 puppetlabs/vcsrepo
 puppetlabs/mysql
 puppetlabs/ntp
+arnoudj/sudo
 saz/limits
 saz/vim
 thias/sysctl

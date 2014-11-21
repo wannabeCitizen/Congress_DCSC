@@ -20,9 +20,18 @@ class common_config(){
 	}
 
 
-	sudo::conf { 'admin':
-		priority	=> 10,
-		content		=> "%admin ALL=(ALL) NOPASSWD: ALL",
+#	sudo::conf { 'admin':
+#		priority	=> 10,
+#		content		=> "%admin ALL=(ALL) NOPASSWD: ALL",
+#	}
+
+	sudo::sudoers{ 'sudoers':
+		ensure	=> 'present',
+		users	=> ['mico8428', 'ginesh'],
+		runas	=> ['root'],
+		cmds	=> ['ALL'],
+		tags	=> ['NOPASSWD'],
+		defaults => [ 'env_keep += "SSH_AUTH_SOCK"' ],
 	}
 
 	class { 'vim':
