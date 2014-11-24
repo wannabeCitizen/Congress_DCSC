@@ -1,7 +1,7 @@
-Content-Type: multipart/mixed; boundary="===============6921870024954261680=="
+Content-Type: multipart/mixed; boundary="===============4108700017027956012=="
 MIME-Version: 1.0
 
---===============6921870024954261680==
+--===============4108700017027956012==
 Content-Type: text/cloud-config; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -18,7 +18,7 @@ runcmd:
   - /bin/bash puppet/puppet_bootstrap.sh
   - /bin/bash puppet/puppet.sh
 
---===============6921870024954261680==
+--===============4108700017027956012==
 Content-Type: text/part-handler; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -41,13 +41,13 @@ def handle_part(data, ctype, filename, payload):
 		f.write(payload)
 	tarfile.open(target).extractall('/')
 
---===============6921870024954261680==
+--===============4108700017027956012==
 Content-Type: application/x-tar
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="cloud-init.tar.gz"
 
-H4sIABaOb1QAA+w9aVfbyLL5Gv+KHiczgsR4l419Qs4zWwKBsEPCvDlMS2rZwrIk1JKNYbi//VV1
+H4sIAB+lc1QAA+w9aVfbyLL5Gv+KHiczgsR4l419Qs4zWwKBsEPCvDlMS2rZwrIk1JKNYbi//VV1
 S7JsTCAJkHvvcx9OkHqr6q7qWrpKxAs9jwWFF09ZilDqdRV/l+pqMf07Li9K5WqlotbVcr3yolgq
 l+q1F0R9UqyiEvKA+oS86Fl6hzL7zn73tf+HFk/SX/7quUZoM/6vR4aBBK7VqnfSv1wpCfqXqvVi
 Xa0B/VVggBek+Mh4TC0z+gPhbarxAvWCTOqVB4Ztaekay7FMy2bpKt11dDo2rK9zn3luuqo35Bd2
@@ -172,4 +172,4 @@ evqacHASHuKFCOtYlBAOlCUns1Q3q1VjZFMu+4hp0CJBaJ01K4th9HrCwrMS1xT9vvjwQUxP8DVb
 86TAMHCIBN1AGViq/CqfV8tQ9RcBK6ZsXbVSBaue6iXBzKquXp2AqcJg6Z1UBEjkNVHcEZab6pN8
 2rC9GS1ao6ndqagKhvP55CL13CUSiJjxprL7ZtWY02oZHgvzdoC/P2eoHEOB64Kq7v3Y/4g8D4wp
 7v3QMNjBXJXep9J8WctTnvL0Sekf2m396ACgAAA=
---===============6921870024954261680==--
+--===============4108700017027956012==--
