@@ -18,10 +18,26 @@ Exec {
 #include vim
 #include ::accounts
 
-node 'michael-VirtualBox', 'ubuntu-ngn-r720-1', 'ubuntu-ngn-r720-2', 'ubuntu-ngn-r720-3', 'ubuntu-ngn-r520', 'mico8428'{
+node 'michael-VirtualBox'{
 	class{'common_config':}
 }
 
-node 'puppet-master'{
+node /*\.worker\.awesome$/ {
+	class{'common_config':}
+}
+
+node /*\.database\.awesome$/ {
+	class{'common_config':}
+}
+
+node /*\.admin\.awesome$/ {
+	class{'common_config':}
+}
+
+node /*\.webserver\.awesome$/ {
+	class{'common_config':}
+}
+
+node /*\.load\.awesome$/ {
 	class{'common_config':}
 }

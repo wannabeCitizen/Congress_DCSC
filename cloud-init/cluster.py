@@ -3,6 +3,7 @@ import time
 import json
 from threading import Thread
 import novaclient.v1_1.client as nvclient
+from novaclient import exceptions
 from credentials import get_nova_creds
 
 def allocate_ip(instance, nova):
@@ -16,8 +17,9 @@ def allocate_ip(instance, nova):
     try:
         for fip in floating_ips:
             if fip.instance_id==None:
-                print fip
-                print fip.ip
+                #print fip
+              #print fip.ip
+                print "Allocated floating ip {ip} for node {node}".format(ip=fip.ip, node=instance)
                 instance.add_floating_ip(fip.ip)
                 allocated = True
                 break
@@ -25,8 +27,8 @@ def allocate_ip(instance, nova):
         #hard-coded the floating ip pool to use
         if ~allocated:
             floating_ip = nova.floating_ips.create("128.138.202.0/24")
+            print "Created floating ip {ip} for node {node}".format(ip=floating_ip.ip, node=instance)
             instance.add_floating_ip(floating_ip)
-            print "created floating ip: %s" % floating_ip.ip
     except:
         print "Ignoring error"
 
@@ -85,7 +87,6 @@ domain = config["domain"]
 workers = int(config["worker_nodes"])
 databases = int(config["database_nodes"])
 admins = int(config["admin_nodes"])
-rabbits = int(config["rabbit_nodes"])
 webservers = int(config["webserver_nodes"])
 
 if not nova.keypairs.findall(name="mico8428"):
@@ -100,9 +101,6 @@ create_cluster("database", domain, databases, nova)
 
 #create admins
 create_cluster("admin", domain, admins, nova, True)
-
-#create rabbits
-create_cluster("rabbit", domain, rabbits, nova)
 
 #create webservers
 create_cluster("webserver", domain, webservers, nova, True)

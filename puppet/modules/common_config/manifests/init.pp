@@ -12,7 +12,7 @@ class common_config(){
 
 	accounts{ 'michael':
 		uname		=>  'michael',
-		uid             =>  1006,
+		uid             =>  1007,
 		realname        =>  'Michael Coughlin',
 		sshkeytype      =>  'ssh-rsa',
 		sshkey          =>  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC9LAFcXxkonD5CAXzPTtbp/zbUBmOQbRE5U4QpfK0N0+PGU7wsjoPEd2BSQRgASMIVypbW2oRvtWjMqDGo70iBh3sSnaogLIZS4Z1+8zlSZ33bSqcWFXc6ORe8F9qMiV8eKxKxei3Ix2lovxUZYsZKOR3pl4QGigotS5QaK9mdwtpZ03hLWFqh+w6dQC1pAvuwWGvEQuVLaEpXUxOarzPzhTckEva7veiW6EByvghR+/K+laLqP89oml2klPZJWVIbNLPrMYPCcTAmZIuU4UWGye6bESsUB5qPFdSXLqqtav4SyE7nhAyjxjzJAs7Bz2ZfXJfysXxBJB1DZvgLLFdd',
@@ -42,7 +42,7 @@ class common_config(){
 
 	sudo::sudoers{ 'sudoers':
 		ensure	=> 'present',
-		users	=> ['mico8428', 'ginesh', 'test2'],
+		users	=> ['mico8428', 'ginesh', 'michael'],
 		runas	=> ['root'],
 		cmnds	=> ['ALL'],
 		tags	=> ['NOPASSWD'],
