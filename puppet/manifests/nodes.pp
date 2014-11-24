@@ -18,26 +18,34 @@ Exec {
 #include vim
 #include ::accounts
 
+notify{'test':}
+
 node 'michael-VirtualBox'{
+	notify{'virtualbox':}
 	class{'common_config':}
 }
 
-node /*\.worker\.awesome$/ {
+node /\w*\.worker\.awesome$/ {
+	notify{'workers':}
 	class{'common_config':}
 }
 
-node /*\.database\.awesome$/ {
+node /\w*\.database\.awesome$/ {
+	notify{'databases':}
 	class{'common_config':}
 }
 
-node /*\.admin\.awesome$/ {
+node /\w*\.admin\.awesome$/ {
+	notify{'admins':}
 	class{'common_config':}
 }
 
-node /*\.webserver\.awesome$/ {
+node /\w*\.webserver\.awesome$/ {
+	notify{'webservers':}
 	class{'common_config':}
 }
 
-node /*\.load\.awesome$/ {
+node /\w*\.load\.awesome$/ {
+	notify{'load balancers':}
 	class{'common_config':}
 }
