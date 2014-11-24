@@ -1,0 +1,8 @@
+{
+	"worker_nodes":"2",
+	"database_nodes":"2",
+	"admin_nodes":"1",
+	"rabbit_nodes":"1",
+	"webserver_nodes":"1",
+	"domain":"awesome"
+}
