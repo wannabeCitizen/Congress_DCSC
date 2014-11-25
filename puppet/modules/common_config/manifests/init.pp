@@ -34,8 +34,6 @@ class common_config(){
 		always_apt_update => true,
 	}
 
-	class{'avahi':}
-
 	class{'apt::unattended_upgrades':
 		update   => '1',
 		download => '1',
