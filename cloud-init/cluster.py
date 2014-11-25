@@ -1,12 +1,12 @@
 import os
 import time
 import json
-from threading import Thread
+from threading import Thread, Lock
 import novaclient.v1_1.client as nvclient
 from novaclient import exceptions
 from credentials import get_nova_creds
 
-def allocate_ip(instance, nova):
+def allocate_ip(instance, nova, mutex):
     floating_ips = nova.floating_ips.list()
 
     #print floating_ips
@@ -15,6 +15,7 @@ def allocate_ip(instance, nova):
 
     allocated = False
     try:
+        mutex.acquire()
         for fip in floating_ips:
             if fip.instance_id==None:
                 #print fip
@@ -31,14 +32,17 @@ def allocate_ip(instance, nova):
             instance.add_floating_ip(floating_ip)
     except:
         print "Ignoring error"
+    finally:
+        mutex.release()
 
-def create_node(hostname, nova, create_ip=False):
+def create_node(hostname, nova, ip_mutex, create_ip=False):
     #uuid of dcsc-net: 424277bf-f9f3-4ffa-a622-eaeb3a4206ae
     #uuid of 128.138.242.0/23: a331fd43-51de-4fa6-b82d-71137a36bc06
+    #uuid of mico8428_subnet: b56f79aa-46b9-4369-9eea-455d47d2bf8a
     image = nova.images.find(name="ubuntu-14.04-amd64")
     flavor = nova.flavors.find(name="r900.tiny")
     userdata = open('user-data', 'r')
-    instance = nova.servers.create(name=hostname, image=image, flavor=flavor, key_name="mico8428", nics=[{'net-id': '424277bf-f9f3-4ffa-a622-eaeb3a4206ae'}], userdata=userdata)
+    instance = nova.servers.create(name=hostname, image=image, flavor=flavor, key_name="mico8428", nics=[{'net-id': 'b56f79aa-46b9-4369-9eea-455d47d2bf8a'}], userdata=userdata)
     print "Spinning up node {hostname}".format(hostname=hostname)
     
     status = instance.status
@@ -61,16 +65,16 @@ def create_node(hostname, nova, create_ip=False):
 
     #instance.add_fixed_ip("424277bf-f9f3-4ffa-a622-eaeb3a4206ae")
     if create_ip:
-        allocate_ip(instance, nova)
+        allocate_ip(instance, nova, ip_mutex)
 
-def create_cluster(cluster, domain, num, nova, create_ip=False):
-    thread = Thread(target = create_cluster_thread, args = (cluster, domain, num, nova, create_ip))
+def create_cluster(cluster, domain, num, nova, ip_mutex, create_ip=False):
+    thread = Thread(target = create_cluster_thread, args = (cluster, domain, num, nova, ip_mutex, create_ip))
     thread.start()
 
-def create_cluster_thread(cluster, domain, num, nova, create_ip=False):
+def create_cluster_thread(cluster, domain, num, nova, ip_mutex, create_ip=False):
     threads = []
     for i in range(1, num+1):
-        thread = Thread(target = create_node, args =("node{num}.{cluster}.{domain}".format(num=i, cluster=cluster, domain=domain), nova, create_ip))
+        thread = Thread(target = create_node, args =("node{num}-{cluster}.{cluster}.{domain}".format(num=i, cluster=cluster, domain=domain), nova, ip_mutex, create_ip))
         threads.append(thread)
         thread.start()
 
@@ -93,14 +97,16 @@ if not nova.keypairs.findall(name="mico8428"):
     with open(os.path.expanduser('~/.ssh/id_rsa.pub')) as fpubkey:
         nova.keypairs.create(name="mico8428", public_key=fpubkey.read())
 
+mutex = Lock()
+
 #create workers
-create_cluster("worker", domain, workers, nova)
+create_cluster("worker", domain, workers, nova, mutex)
 
 #create databases
-create_cluster("database", domain, databases, nova)
+create_cluster("database", domain, databases, nova, mutex)
 
 #create admins
-create_cluster("admin", domain, admins, nova, True)
+create_cluster("admin", domain, admins, nova, mutex, True)
 
 #create webservers
-create_cluster("webserver", domain, webservers, nova, True)
+create_cluster("webserver", domain, webservers, nova, mutex, True)

@@ -25,27 +25,27 @@ node 'michael-VirtualBox'{
 	class{'common_config':}
 }
 
-node /\w*\.worker\.awesome$/ {
+node /node\d*-worker/ {
 	notify{'workers':}
 	class{'common_config':}
 }
 
-node /\w*\.database\.awesome$/ {
+node /node\d*-database/ {
 	notify{'databases':}
 	class{'common_config':}
 }
 
-node /\w*\.admin\.awesome$/ {
+node /node\d*-admin/ {
 	notify{'admins':}
 	class{'common_config':}
 }
 
-node /\w*\.webserver\.awesome$/ {
+node /node\d*-webserver/ {
 	notify{'webservers':}
 	class{'common_config':}
 }
 
-node /\w*\.load\.awesome$/ {
+node /node\d*-load/ {
 	notify{'load balancers':}
 	class{'common_config':}
 }
