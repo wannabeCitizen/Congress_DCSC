@@ -17,6 +17,7 @@ Exec {
 #include ::csel
 #include vim
 #include ::accounts
+include packagecloud
 
 notify{'test':}
 
@@ -26,27 +27,7 @@ node 'michael-VirtualBox'{
 	class{'avahi':
 		avahi_domainname => 'awesome',
 	}
-	class{'riak':
-		cfg        => {
-		  riak_api  => {
-	      	    pb       => {
-			pb_ip   => $ipaddress,
-			pb_port => 8087,
-		    },
-		  },
-
-		}
-	}
-	exec{"riak start; riak-admin cluster plan; riak-admin cluster commit":
-		requires => Class['riak'],
-	}
-	info "My hostname is: "
-	info $hostname
-	if($hostname != "michael-VirtualBox"){
-		exec{"riak-admin cluster join riak@node0.database.awesome.local; riak-admin cluster-plan; riak-admin cluster commit":
-			requires => Exec["riak start; riak-admin cluster plan; riak-admin cluster commit",
-		}
-	}
+	class{'redis_local':}
 
 }
 
@@ -68,27 +49,7 @@ node /node\d*-database/ {
 		avahi_domainname => 'database.awesome',
 	}
 	#riak
-	class{'riak':
-		cfg        => {
-		  riak_api  => {
-	      	    pb       => {
-			pb_ip   => $ipaddress,
-			pb_port => 8087,
-		    },
-		  },
-
-		}
-	}
-	exec{"riak start; riak-admin cluster plan; riak-admin cluster commit":
-		requires => Class['riak'],
-	}
-	info "My hostname is: "
-	info $hostname
-	if($hostname != "node0"){
-		exec{"riak-admin cluster join riak@node0.database.awesome.local; riak-admin cluster-plan; riak-admin cluster commit":
-			requires => Exec["riak start; riak-admin cluster plan; riak-admin cluster commit",
-		}
-	}
+	class{'riak':}
 }
 
 node /node\d*-admin/ {
