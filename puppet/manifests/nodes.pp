@@ -49,7 +49,7 @@ node /node\d*-database/ {
 	}
 	#riak
 	class{'redis_local':
-		firstnode => "node1-database.local",
+		firstnode => "node1-database",
 	}
 }
 
