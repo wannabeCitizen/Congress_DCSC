@@ -49,7 +49,9 @@ node /node\d*-database/ {
 		avahi_domainname => 'database.awesome',
 	}
 	#riak
-	class{'riak':}
+	class{'redis_local':
+		firstnode => "node0.database.awesome.local",
+	}
 }
 
 node /node\d*-admin/ {
