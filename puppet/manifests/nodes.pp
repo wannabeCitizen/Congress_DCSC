@@ -17,7 +17,6 @@ Exec {
 #include ::csel
 #include vim
 #include ::accounts
-include packagecloud
 
 notify{'test':}
 
