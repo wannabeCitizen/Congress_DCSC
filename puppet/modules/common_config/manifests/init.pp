@@ -55,7 +55,7 @@ class common_config(){
 		opt_misc		=> ['hlsearch', 'autoindent', 'ruler', 'visualbell', 'mouse=a', 'number'],
 	}
 
-	$packages_list = ["bash-completion", "htop", "iotop", "iftop", "openssh-server", "git", "make", "rsync", "tcpdump", "ntp", "wget", "tmux", "screen", "vim-puppet", "avahi-utils"]
+	$packages_list = ["bash-completion", "htop", "iotop", "iftop", "openssh-server", "git", "make", "rsync", "tcpdump", "ntp", "wget", "tmux", "screen", "vim-puppet", "avahi-utils", "python-flask", "python-redis"]
 
 	package{$packages_list: ensure => "latest"}
 
