@@ -1061,12 +1061,13 @@ def parse_directory(path, my_date, **kwargs):
                 if speaker.attrib['name'] not in unique_speak.keys():
                     unique_speak[speaker.attrib['name']] = True
             doc_title = xml_root.findall('document_title')[0].text
+            final_doc_name = str(new_name[:-4])
 
-            redis_rawdoc.set(new_name[:-4], content)
+            redis_rawdoc.set(final_doc_name, content)
             for names in unique_speak:
-                redis_name.rpush(unique_speak[names], new_name[:-4])
-            redis_date.rpush(my_date, new_name[:-4])
-            redis_title.rpush(doc_title, new_name[:-4])
+                redis_name.rpush(names, final_doc_name)
+            redis_date.rpush(my_date, final_doc_name)
+            redis_title.rpush(doc_title, final_doc_name)
         except:
             print "Bad XML File - Parser Failed"
 
