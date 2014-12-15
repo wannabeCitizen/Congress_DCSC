@@ -28,7 +28,7 @@ def by_doc(q_doc):
     data = []
     doc_list = redis_title.keys('*'+q_doc.upper()+'*')
     for title in doc_list:
-        docs = redis_doc.lrange(title, 0, -1)
+        docs = redis_title.lrange(title, 0, -1)
         i = 0
         for doc in docs:
             if i<10:
