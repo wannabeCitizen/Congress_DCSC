@@ -1,6 +1,6 @@
 {
 	"worker_nodes":"2",
-	"database_nodes":"2",
+	"database_nodes":"1",
 	"admin_nodes":"0",
 	"webserver_nodes":"1",
 	"domain":"awesome"
