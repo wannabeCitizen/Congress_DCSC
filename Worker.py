@@ -8,10 +8,11 @@ redis_name= redis.Redis(host=redisHost, db=2) # Key = Speaker Name; Value = The 
 redis_title = redis.Redis(host=redisHost, db=3) # Key = License; Value = MD5 Hash
 redis_date = redis.Redis(host=redisHost, db=4) # Key = License; Value = File Name
 
-hostname = 'webserver.local'
+hostname = 'node1-webserver.local'
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host=hostname))
+        hostname,
+        15672))
 
 channel = connection.channel()
 
