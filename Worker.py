@@ -8,6 +8,7 @@ def by_date(q_date):
         doc_list = redis_date.lrange(q_date, 0, -1)
         for x in doc_list:
             data.append(redis_rawdoc.get(x))
+    print "About to send off data"
     return data
     
 def by_name(q_name):
@@ -20,6 +21,7 @@ def by_name(q_name):
             if i < 10:
                 data.append(redis_rawdoc.get(doc))
                 i += 1
+    print "About to send off data"
     return data
 
 def by_doc(q_doc):
@@ -32,6 +34,7 @@ def by_doc(q_doc):
             if i<10:
                 data.append(redis_rawdoc.get(doc))
                 i += 1
+    print "About to send off data"
     return data
 
 def search(q_string):
