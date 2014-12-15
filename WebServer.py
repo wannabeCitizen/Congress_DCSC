@@ -15,7 +15,7 @@ class My_RPC_Client(object):
         self.channel = self.connection.channel()
 
         #Establish a callback queue for requests
-        my_queue = channel.queue_declare(exclusive=True)
+        my_queue = self.channel.queue_declare(exclusive=True)
         self.callback_queue = my_queue.method.queue
         self.channel.basic_consume(self.response_check, no_ack=True, queue=self.callback_queue)
 
@@ -30,7 +30,7 @@ class My_RPC_Client(object):
         channel.basic_publish(exchange='',
                                 routing_key='rpc_queue',
                                 properties=pika.BasicProperties(
-                                    reply_to = callback_queue,
+                                    reply_to = self.callback_queue,
                                     correlation_id = self.corr_id,
                                     ),
                                    body=(message, my_type))
