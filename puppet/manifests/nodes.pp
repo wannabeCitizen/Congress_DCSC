@@ -67,6 +67,12 @@ node /node\d*-webserver/ {
 	#according to the puppetlabs/apt module site, 500 should be the default
 	class {'::rabbitmq':
 		package_apt_pin => "500",
+		port => "5672",
+		node_ip_address => '0.0.0.0',
+		delete_guest_user => false,
+		config_variables => {
+			'loopback_users' => [],
+		}
 	}
 }
 
