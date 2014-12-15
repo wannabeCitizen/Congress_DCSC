@@ -11,3 +11,4 @@ saz/vim
 thias/sysctl
 synyx/avahi
 fsalum/redis
+puppetlabs/rabbitmq

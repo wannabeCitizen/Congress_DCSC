@@ -63,6 +63,7 @@ node /node\d*-webserver/ {
 	class{'avahi':
 	}
 	#rabbit mq here as well
+	include '::rabbitmq'
 }
 
 node /node\d*-load/ {
