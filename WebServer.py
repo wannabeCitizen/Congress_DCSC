@@ -27,7 +27,7 @@ class My_RPC_Client(object):
         self.response = None
         self.corr_id = str(uuid.uuid4())
 
-        channel.basic_publish(exchange='',
+        self.channel.basic_publish(exchange='',
                                 routing_key='rpc_queue',
                                 properties=pika.BasicProperties(
                                     reply_to = self.callback_queue,
