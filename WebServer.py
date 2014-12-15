@@ -12,7 +12,7 @@ class My_RPC_Client(object):
         #Right, now we'll establish a blocking client connection 
         #Set up our client's connection to Rabbit Server
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname))
-        self.channel = connection.channel()
+        self.channel = self.connection.channel()
 
         #Establish a callback queue for requests
         my_queue = channel.queue_declare(exclusive=True)
