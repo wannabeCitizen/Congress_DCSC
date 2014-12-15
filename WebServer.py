@@ -16,7 +16,7 @@ class My_RPC_Client(object):
 
         #Establish a callback queue for requests
         my_queue = channel.queue_declare(exclusive=True)
-        callback_queue = result.method.queue
+        callback_queue = my_queue.method.queue
         channel.basic_consume(self.response_check, no_ack=True, queue=callback_queue)
 
     def response_check(self, ch, method, props, body):
