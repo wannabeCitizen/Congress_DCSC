@@ -13,7 +13,7 @@ def by_date(q_date):
     
 def by_name(q_name):
     data = []
-    people = redis_name.keys('*'+q_name+'*')
+    people = redis_name.keys('*'+q_name.upper()+'*')
     for person in people:
         doc_list = redis_name.lrange(person, 0, -1)
         i = 0
@@ -26,7 +26,7 @@ def by_name(q_name):
 
 def by_doc(q_doc):
     data = []
-    doc_list = redis_title.keys('*'+q_doc+'*')
+    doc_list = redis_title.keys('*'+q_doc.upper()+'*')
     for title in doc_list:
         docs = redis_doc.lrange(title, 0, -1)
         i = 0
