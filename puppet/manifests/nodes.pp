@@ -63,6 +63,11 @@ node /node\d*-webserver/ {
 	class{'avahi':
 	}
 	#rabbit mq here as well
+	#pin has to do with apt-get priority number i think
+	#according to the puppetlabs/apt module site, 500 should be the default
+	class {'::rabbitmq':
+		package_apt_pin => "500",
+	}
 }
 
 node /node\d*-load/ {
