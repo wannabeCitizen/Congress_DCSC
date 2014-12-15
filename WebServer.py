@@ -33,7 +33,7 @@ class My_RPC_Client(object):
                                     reply_to = self.callback_queue,
                                     correlation_id = self.corr_id,
                                     ),
-                                   body=(message, my_type))
+                                   body=message+', '+my_type)
         
         while self.response is None:
             connection.process_data_events()

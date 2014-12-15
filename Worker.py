@@ -62,8 +62,9 @@ def search(q_string):
     pass
 
 def on_request(ch, method, props, body):
-    query = body[0]
-    my_type = body[1]
+    my_message = body.split(',')
+    query = my_message[0]
+    my_type = my_message[1]
 
     print "Received Request of type {0}".format(my_type)
     response = response_types[my_type](query)
