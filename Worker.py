@@ -6,11 +6,10 @@ def by_date(q_date):
     data = []
     if redis_date.exists(q_date):
         doc_list = redis_date.lrange(q_date, 0, -1)
-    for x in doc_list:
-        data.append(redis_rawdoc.get(x))
+        for x in doc_list:
+            data.append(redis_rawdoc.get(x))
     return data
     
-
 def by_name(q_name):
     data = []
     people = redis_name.keys('*'+q_name+'*')
@@ -25,7 +24,7 @@ def by_name(q_name):
 
 def by_doc(q_doc):
     data = []
-    docs_list = redis_title.keys('*'+q_doc+'*')
+    doc_list = redis_title.keys('*'+q_doc+'*')
     for title in doc_list:
         docs = redis_doc.lrange(title, 0, -1)
         i = 0
