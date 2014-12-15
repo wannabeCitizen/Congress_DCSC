@@ -2,29 +2,6 @@
 import pika
 import redis
 
-redisHost = 'node1-database.local'
-redis_rawdoc = redis.Redis(host=redisHost, db=1) # Key = Raw Document File; Value = Body of Document - Raw
-redis_name= redis.Redis(host=redisHost, db=2) # Key = Speaker Name; Value = The Raw Doc File Name
-redis_title = redis.Redis(host=redisHost, db=3) # Key = License; Value = MD5 Hash
-redis_date = redis.Redis(host=redisHost, db=4) # Key = License; Value = File Name
-
-hostname = 'node1-webserver.local'
-
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        hostname,
-        15672))
-
-channel = connection.channel()
-
-channel.queue_declare(queue='rpc_queue')
-
-response_types = {
-    'date': by_date,
-    'name': by_name,
-    'doc' : by_doc,
-    'search' : search
-}
-
 def by_date(q_date):
     data = []
     if redis_date.exists(q_date):
@@ -75,6 +52,30 @@ def on_request(ch, method, props, body):
                                                          props.correlation_id),
                      body=str(response))
     ch.basic_ack(delivery_tag = method.delivery_tag)
+
+
+redisHost = 'node1-database.local'
+redis_rawdoc = redis.Redis(host=redisHost, db=1) # Key = Raw Document File; Value = Body of Document - Raw
+redis_name= redis.Redis(host=redisHost, db=2) # Key = Speaker Name; Value = The Raw Doc File Name
+redis_title = redis.Redis(host=redisHost, db=3) # Key = License; Value = MD5 Hash
+redis_date = redis.Redis(host=redisHost, db=4) # Key = License; Value = File Name
+
+hostname = 'node1-webserver.local'
+
+credentials = pika.PlainCredentials('guest', 'guest')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=5672, credentials=credentials))
+
+channel = connection.channel()
+
+channel.queue_declare(queue='rpc_queue')
+
+response_types = {
+    'date': by_date,
+    'name': by_name,
+    'doc' : by_doc,
+    'search' : search
+}
+
 
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(on_request, queue='rpc_queue')
