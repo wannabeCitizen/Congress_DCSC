@@ -57,7 +57,7 @@ def find_by_name(name):
     if request.method == 'GET':
         print "looking for what {0} has been up to in Congress".format(name)
         my_rabbit = My_RPC_Client()
-        return my_rabbit.call_RPC(date, 'name')
+        return my_rabbit.call_RPC(name, 'name')
     else:
         abort(403)
 
@@ -66,7 +66,7 @@ def find_by_title(doc_title):
     if request.method == 'GET':
         print "looking for documents about {0} ".format(doc_title)
         my_rabbit = My_RPC_Client()
-        return my_rabbit.call_RPC(date, 'doc')
+        return my_rabbit.call_RPC(doc_title, 'doc')
     else:
         abort(403)
 
@@ -75,7 +75,7 @@ def open_search(search_string):
     if request.method == 'GET':
         print "looking for anything involving {0} in Congress".format(search_string)
         my_rabbit = My_RPC_Client()
-        return my_rabbit.call_RPC(date, 'search')
+        return my_rabbit.call_RPC(search_string, 'search')
     else:
         abort(403)
 
