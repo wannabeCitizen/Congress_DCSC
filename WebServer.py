@@ -11,13 +11,13 @@ class My_RPC_Client(object):
     def __init__(self):
         #Right, now we'll establish a blocking client connection 
         #Set up our client's connection to Rabbit Server
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname))
-        channel = connection.channel()
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname))
+        self.channel = connection.channel()
 
         #Establish a callback queue for requests
         my_queue = channel.queue_declare(exclusive=True)
-        callback_queue = my_queue.method.queue
-        channel.basic_consume(self.response_check, no_ack=True, queue=callback_queue)
+        self.callback_queue = my_queue.method.queue
+        self.channel.basic_consume(self.response_check, no_ack=True, queue=self.callback_queue)
 
     def response_check(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
