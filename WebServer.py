@@ -36,7 +36,7 @@ class My_RPC_Client(object):
                                    body=message+', '+my_type)
         
         while self.response is None:
-            connection.process_data_events()
+            self.connection.process_data_events()
         return str(self.response)
 
 @app.route('/')
