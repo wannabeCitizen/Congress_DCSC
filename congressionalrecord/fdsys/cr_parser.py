@@ -13,9 +13,9 @@ import lxml.etree
 import redis
 
 from .errors import *
-from congressionalrecord.lib.xml_annotator import XMLAnnotator
-from congressionalrecord.lib.regex import Regex
-from congressionalrecord.lib.logging import initialize_logfile, get_stack_trace
+from lib.xml_annotator import XMLAnnotator
+from lib.regex import Regex
+from lib.logging import initialize_logfile, get_stack_trace
 
 MONTHS = [datetime.date(2010, x, 1).strftime('%B') for x in range(1,13)]
 
