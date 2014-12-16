@@ -50,6 +50,7 @@ The final topography, including technology used can be seen in the figure below:
 ![Topomap](DCSC_Structure.png)
 
 ## Findings and Lessons Learned
+We learned several lessons when working with this technology, especially in how to use these various open source cloud projects. One of the key lessons we learned was that even though many of these projects are supposed to have superior features, the one that is easier to deploy is often better for the project. Another lesson we learned is that these cloud infrastructures have many automated features, such as Cloud-init that are very powerful if properly configured, but other tools are needed to extend them if you are not deploying a standard application, such as Puppet and Avahi.
 
 ## Future Implementations
 
