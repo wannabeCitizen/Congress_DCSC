@@ -31,13 +31,18 @@ After some consideration, we decided that (1) and (3) were questions that needed
 
 Given that the Congressional Record has a single, centralized outpost, we deemed it unnecessary to allow users to provide us with data since we can easily keep up to date with any new data posted by the federal government.  As for (2), we chose to keep the pub-sub exchange on the same node as the web server in order to avoid the problem of our exchange going down but the Web Server still taking requests.
 
+<!--
 #[Michael can describe the process of using Puppet here]
+-->
+###Cloud Deployment
 In order to deploy our application, we needed a cluster of different servers in order to host our services and potentially support scaling of the application, which suggested the use of a cloud infrastructure. Our original plan was to develop the cluster using OpenStack and then migrate to EC2, which led us to choose technologies that are generally supported by many cloud providers. For this reason, we chose Ubuntu server, Puppet and Cloud-init as our platform technologies, as they are supported by both OpenStack and Amazon EC2. An added benefit to using these technologies is that our application can be distributed as a set of Puppet and Cloud-init configuration files with small programs that can deploy the application on different providers.
 
 By using Cloud-init and Puppet, our entire cluster can be stood up using a single shell script that communicates with OpenStack using the Nova Python API. By making use of the user-data file that can be provided to Cloud-init, we are able to provide a complete compressed Puppet configuration for the cluster, a Python handler to decompress the configuration and a command to instruct Cloud-init to install Puppet and apply the configuration. Traditionally, Puppet configurations are applied using a central Puppet master server, but by providing the configuration directly to each node, the cluster can be created without the need for any exisiting structure, such as a master server in the cluster. In our Puppet configuration, we install all neccessary servers onto the specific nodes, such as Redis on the database nodes or RabbitMQ on the web server node, and launch these services as soon as the nodes are available. This allows to be able to create the entire cluster and application using a single command and change the cluster configuration in a single location, without having to access the nodes directly.
 
+###Database
 In choosing a database, we started by looking into Cassandra, but quickly realized this was much too large of a system for our needs.  We didn't really need JSON-like blobs and instead just needed a way to look up documents.  Then we moved on to reading into Riak, which is supposed to be built for large, distributed systems.  However, we found that the configuration of Riak, was more than we wanted to commit to this portion of project.  Thus, in the end we chose Redis due to the simplicity of configuring the server and setting up mirroring as well as the well supported Python API.  
 
+###Web Crawler
 One of the biggest challenges in this process was getting the crawler, parsing, and indexing working correctly.  At first, we wrote a simple web scraper using [Tornado](http://www.tornadoweb.org/en/stable/).  This worked fine, but then we got bogged down trying to get the parsing right.  In the end, we found that Sunlight Foundation had already written a parser that converted Congressional Documents to marked-up XML.  Since their tools are open source, we decided to attach their parser to my crawler.
 
 ## Technology Used
