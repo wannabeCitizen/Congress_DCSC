@@ -43,11 +43,13 @@ By using Cloud-init and Puppet, our entire cluster can be stood up using a singl
 In choosing a database, we started by looking into Cassandra, but quickly realized this was much too large of a system for our needs.  We didn't really need JSON-like blobs and instead just needed a way to look up documents.  Then we moved on to reading into Riak, which is supposed to be built for large, distributed systems.  However, we found that the configuration of Riak, was more than we wanted to commit to this portion of project.  Thus, in the end we chose Redis due to the simplicity of configuring the server and setting up mirroring as well as the well supported Python API.  
 
 ###Web Crawler
-One of the biggest challenges in this process was getting the crawler, parsing, and indexing working correctly.  At first, we wrote a simple web scraper using [Tornado](http://www.tornadoweb.org/en/stable/).  This worked fine, but then we got bogged down trying to get the parsing right.  In the end, we found that Sunlight Foundation had already written a parser that converted Congressional Documents to marked-up XML.  Since their tools are open source, we decided to attach their parser to my crawler.
+One of the biggest challenges in this process was getting the crawler, parsing, and indexing working correctly.  At first, we wrote a simple web scraper using [Tornado](http://www.tornadoweb.org/en/stable/).  This worked fine, but then we got bogged down trying to get the parsing right.  In the end, we found that Sunlight Foundation had already written a parser that converted Congressional Documents to marked-up XML.  Since their tools are open source, we decided to attach their parser to my crawler, which is now implemented in Flask.
 
 ## Technology Used
-The final topography, including technology used can be seen in the figure below:
+The final topography, including technology used can be seen in the figure below:\
 ![Topomap](DCSC_Structure.png)
+
+This topology has separate clusters for the worker and database nodes, and a single node to host the web server and RabbitMQ server. As detailed above, we used Redis as our database, RabbitMQ as our pub/sub system and Puppet and Cloud-init for our deployment and management systems.
 
 ## Findings and Lessons Learned
 We learned several lessons when working with this technology, especially in how to use these various open source cloud projects. One of the key lessons we learned was that even though many of these projects are supposed to have superior features, the one that is easier to deploy is often better for the project. Another lesson we learned is that these cloud infrastructures have many automated features, such as Cloud-init that are very powerful if properly configured, but other tools are needed to extend them if you are not deploying a standard application, such as Puppet and Avahi.
