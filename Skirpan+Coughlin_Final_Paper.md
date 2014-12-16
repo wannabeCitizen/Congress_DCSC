@@ -53,5 +53,13 @@ The final topography, including technology used can be seen in the figure below:
 We learned several lessons when working with this technology, especially in how to use these various open source cloud projects. One of the key lessons we learned was that even though many of these projects are supposed to have superior features, the one that is easier to deploy is often better for the project. Another lesson we learned is that these cloud infrastructures have many automated features, such as Cloud-init that are very powerful if properly configured, but other tools are needed to extend them if you are not deploying a standard application, such as Puppet and Avahi.
 
 ## Future Implementations
+There a number of features that we would like to implement in future versions of this project. Some of these features were omitted due to time constraints, while others were brainstormed during the development of the project.
+
+* Elastic load balancing of requests and work to the workers
+* Asynchronous handling of time-intensive tasks
+* Increased performance and fault tolerance of the system, such as using mirrored copies of the Reis database
+* Evaluation of acknowledgments for the pub/sub system
+* Evaluation of the functionality/useability tradeoff between different pub/sub systems such as between RabbitMQ and Redis, or even other systems like ZeroMQ or Kafka
+* Migration to other cloud services, such as EC2, and provide support for different providers using a common configuration
 
 ## Conclusion
