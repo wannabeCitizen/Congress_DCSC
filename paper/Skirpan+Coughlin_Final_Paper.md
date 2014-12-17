@@ -69,3 +69,7 @@ There a number of features that we would like to implement in future versions of
 * Migration to other cloud services, such as EC2 or Digital Ocean, and provide support for different providers using a common configuration
 
 ## Conclusion
+
+In the end, we successfully downloaded, parsed, indexed, and stored three years of the Congressional Record on a mirrored Redis server.  We used an RPC implementation of a queueing system on a RabbitMQ exchange and a Flask web server to handle API routes for searching the data by name (surname of Congressman or woman), document title, or date.  The queue used unique identifiers to bind requests with work in the queue and the workers would push full documents, concatenated into a list back to the callers waiting on the web server.  
+
+With the whole system working at the most basic level, the immediate next steps would be a web front-end and more database nodes to handle more of the Congressional Record.  We now feel we have a sense for some of the foundational issues faced when setting up a distributed system in the cloud and plan to continue working on this project to support more features in the future.  A full implementation of this system, ready for production, would definitely include a more robust messaging system and load balancing.  Once we see the feasibility of the project upon adding features, it'll be interesting to reanalyze our work and determine next steps.
