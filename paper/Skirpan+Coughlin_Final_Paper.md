@@ -67,6 +67,7 @@ There a number of features that we would like to implement in future versions of
 * Evaluation of acknowledgments for the pub/sub system
 * Evaluation of the functionality/usability trade off between different pub/sub systems such as comparing our RabbitMQ and Redis system to NSQ, ZeroMQ or Kafka with a Riak or Cassandra database.
 * Migration to other cloud services, such as EC2 or Digital Ocean, and provide support for different providers using a common configuration
+* Create a web front end for the application to make it easily accessible
 
 ## Conclusion
 
